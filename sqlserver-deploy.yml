@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: mssql-deploy
+  labels:
+    name: mssql-deploy
+    app: microservice-seguridad
+spec:
+  replicas: 1
+  selector:
+    mathlabels:
+      app: microservice-seguridad
+      name: mssql-pod
+    template:
+      spec:
+        metadata:
+          name: mssql
+          labels:
+            app: microservice-seguridad
+            name: mssql-pod
+        spec:
+          containers:
+            - name : mssql
+              image: docker pull mcr.microsoft.com/mssql/server      
+              env:
+              - name: ACCEPT_EULA
+                value: "Y"
+              -name: SA_PASSWORD
+                value "$VaxiDrez2025"

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: microservice-seguridad-deploy
+  labels:
+    app: microservice-seguridad-deploy
+    type: microservice
+spec:
+  replicas: 2
+  selector: 
+    matchlabel:
+      app: microservice-seguridad
+      type: microservice
+  template: 
+    metadata:
+      name: microservice-seguridad-pod
+      labels:
+        app: microservice-seguridad
+        type: microservice
+    spec:
+      containers:
+        - name : microservice-seguridad-app
+          image: jpferreyradev/serviciosapiseguridad:latest
+          ports:
+            - containerPort:80
+          env:
+            - name: ConnectionStrings__ConexionDB
+              value: Server=mssql-service; Database=Seguridad;User=sa;Password=$VaxiDrez2025
